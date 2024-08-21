@@ -1,0 +1,1 @@
+Deallocation of one d array 

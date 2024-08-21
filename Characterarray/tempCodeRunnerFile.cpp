@@ -1,0 +1,1 @@
+cout<<palimdromecheck(ch,strlen(ch));
