@@ -65,17 +65,17 @@ void insertAtTail(Node*&head,Node*&tail ,int data){
         // step-3
      tail=newnode;}
     }
- int getLLlenth(Node*&head){
-int length=0;
-Node*temp=head;
-  while(temp!=NULL){
-       
-        temp=temp->next;
-         length++;
-        }
-        return length;
+        int getLLlenth(Node*&head){
+        int length=0;
+        Node*temp=head;
+        while(temp!=NULL){
+            
+                temp=temp->next;
+                length++;
+                }
+                return length;
 
- }
+        }
  void insertAtPosition(int data,int position ,Node*&head,Node*&tail){
     // Edge cases
     // for position=0
