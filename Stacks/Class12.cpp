@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// creating two stacks in one array
+
 class Stack{
         public:
         int *arr;

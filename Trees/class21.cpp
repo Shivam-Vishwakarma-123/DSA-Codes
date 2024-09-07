@@ -8,7 +8,7 @@ class Node{
     Node(int data){
         this->data=data;
         this->left=NULL;
-         this->right=NULL;
+        this->right=NULL;
     }
 
 };
@@ -28,6 +28,38 @@ class Solution {
         node->data= node->data+leftans+rightans;
         return node->data;
     }
+};
+
+
+class Solution {
+  public:
+  
+  int getsumtree(Node* &root){
+      // Base case: if the node is null, return 0
+      if(root == nullptr){
+          return 0;
+      }
+    
+      // Recursively get the sum of the left and right subtrees
+      int leftSum = getsumtree(root->left);
+      int rightSum = getsumtree(root->right);
+      
+      // Store the current node's value
+      int oldValue = root->data;
+      
+      // Update the current node's value to the sum of its left and right subtrees
+      root->data = leftSum + rightSum;
+      
+      // Return the sum of the subtree rooted at the current node, which is the original value plus the sum of the left and right subtrees
+      return oldValue + root->data;
+  }
+  
+  // Convert a given tree to a tree where every node contains the sum of values of
+  // nodes in left and right subtrees in the original tree
+  void toSumTree(Node *node)
+  {
+      getsumtree(node);
+  }
 };
 // LCR 
 /**
