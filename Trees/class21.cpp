@@ -33,6 +33,43 @@ class Solution {
 
 class Solution {
   public:
+  int helperFunction(Node* root) {
+      // Base case: If the node is null, return 0 (null contributes 0 sum)
+      if (root == nullptr) {
+          return 0; 
+      }
+
+      // If the node is a leaf, return its value (leaf is always a sum tree)
+      if (root->left == nullptr && root->right == nullptr) {
+          return root->data;
+      }
+
+      // Recursively calculate the sum of left and right subtrees
+      int leftAnswer = helperFunction(root->left);
+      int rightAnswer = helperFunction(root->right);
+
+      // If any subtree is not a sum tree, return -1 to propagate the failure
+      if (leftAnswer == -1 || rightAnswer == -1) {
+          return -1;
+      }
+
+      // Check if the current node satisfies the sum tree property
+      if (root->data != leftAnswer + rightAnswer) {
+          return -1;  // Not a sum tree
+      }
+
+      // Return the total sum of the current subtree
+      return root->data + leftAnswer + rightAnswer;
+  }
+
+  bool isSumTree(Node* root) {
+      // Call the helper function and check if the result is not -1
+      return helperFunction(root) != -1;
+  }
+};
+
+class Solution {
+  public:
   
   int getsumtree(Node* &root){
       // Base case: if the node is null, return 0
