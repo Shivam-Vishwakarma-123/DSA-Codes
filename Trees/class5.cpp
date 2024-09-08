@@ -76,45 +76,50 @@ void PrintTopView(Node *root)
     }
 }
 
-void PrintBottomView(Node *root)
+class Solution
 {
-    if (root == NULL)
+    public:
+    
+  void printtopview(Node*root,vector<int>&ans){
+      map<int,int>topnode;
+    
+      
+      queue<pair<Node*,int>>q;
+      q.push(make_pair(root,0));
+      while(!q.empty()){
+          pair<Node*,int>temp=q.front();
+          q.pop();
+          Node*frontnode=temp.first;
+         int hd=temp.second;
+         if(topnode.find(hd)==topnode.end()){
+             topnode[hd]=frontnode->data;
+         }
+         if(frontnode->left){
+             q.push(make_pair(frontnode->left,hd-1));
+         }
+         if(frontnode->right){
+             q.push(make_pair(frontnode->right,hd+1));
+         }
+      }
+      for(auto i:topnode){
+          ans.push_back(i.second);
+      }
+      
+    //   push the root node 
+    
+  }
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    vector<int> topView(Node *root)
     {
-        return;
+        vector<int>ans;
+        printtopview(root,ans);
+        return ans;
+        
+        //Your code here
     }
-    // Storing a Map for Storing HD-> of topnode->data
-    map<int, int> topnode;
-    //  level order traversal
-    // pair consisting of node and horizontal distance
-    queue<pair<Node *, int>> q;
-    q.push(make_pair(root, 0));
-    while (!q.empty())
-    {
-        pair<Node *, int> temp = q.front();
-        q.pop();
-        Node *frontnode = temp.first;
-        int hd = temp.second;
 
-        //  jo bhi horizontal distance aaya h ,check if answer for that hd already exitss or  not
-
-        // create entry
-        topnode[hd] = frontnode->data;
-        if (frontnode->left)
-        {
-            q.push(make_pair(frontnode->left, hd - 1));
-        }
-        if (frontnode->right)
-        {
-            q.push(make_pair(frontnode->right, hd + 1));
-        }
-    }
-    // ab answer store hua hoga aapke map me
-    cout << "Printing the ans " << endl;
-    for (auto i : topnode)
-    {
-        cout << i.first << " -> " << i.second << endl;
-    }
-}
+};
 void PrintleftTree(Node *root, vector<int> &ans, int level)
 {
     if (root == NULL)
