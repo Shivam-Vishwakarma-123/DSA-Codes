@@ -1,173 +1,150 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-class Node{
+
+// Class for the tree node
+class Node {
     public:
     int data;
     Node* left;
     Node* right;
-    Node(int data){
-        this->data=data;
-        this->left=NULL;
-        this->right=NULL;
+    Node(int data) {
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
-
 };
-class Solution {
+
+// Sum Tree Conversion Solution
+class SumTreeSolution {
   public:
-  
-    // Convert a given tree to a tree where every node contains sum of values of
-    // nodes in left and right subtrees in the original tree
-    int  toSumTree(Node *node)
-    {
-        // Your code heref()
-        if(node==NULL){
+    int toSumTree(Node* node) {
+        if (node == NULL) {
             return 0;
         }
-        int leftans=toSumTree(node->left);
-        int rightans=toSumTree(node->right);
-        node->data= node->data+leftans+rightans;
+        int leftAns = toSumTree(node->left);
+        int rightAns = toSumTree(node->right);
+        node->data = node->data + leftAns + rightAns;
         return node->data;
     }
 };
 
-
-class Solution {
+// Sum Tree Validation Solution
+class ValidateSumTreeSolution {
   public:
-  int helperFunction(Node* root) {
-      // Base case: If the node is null, return 0 (null contributes 0 sum)
-      if (root == nullptr) {
-          return 0; 
-      }
+    int helperFunction(Node* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        if (root->left == nullptr && root->right == nullptr) {
+            return root->data;
+        }
+        int leftAnswer = helperFunction(root->left);
+        int rightAnswer = helperFunction(root->right);
+        if (leftAnswer == -1 || rightAnswer == -1) {
+            return -1;
+        }
+        if (root->data != leftAnswer + rightAnswer) {
+            return -1;
+        }
+        return root->data + leftAnswer + rightAnswer;
+    }
 
-      // If the node is a leaf, return its value (leaf is always a sum tree)
-      if (root->left == nullptr && root->right == nullptr) {
-          return root->data;
-      }
-
-      // Recursively calculate the sum of left and right subtrees
-      int leftAnswer = helperFunction(root->left);
-      int rightAnswer = helperFunction(root->right);
-
-      // If any subtree is not a sum tree, return -1 to propagate the failure
-      if (leftAnswer == -1 || rightAnswer == -1) {
-          return -1;
-      }
-
-      // Check if the current node satisfies the sum tree property
-      if (root->data != leftAnswer + rightAnswer) {
-          return -1;  // Not a sum tree
-      }
-
-      // Return the total sum of the current subtree
-      return root->data + leftAnswer + rightAnswer;
-  }
-
-  bool isSumTree(Node* root) {
-      // Call the helper function and check if the result is not -1
-      return helperFunction(root) != -1;
-  }
+    bool isSumTree(Node* root) {
+        return helperFunction(root) != -1;
+    }
 };
 
-class Solution {
+// Another Sum Tree Conversion Solution
+class AnotherSumTreeSolution {
   public:
-  
-  int getsumtree(Node* &root){
-      // Base case: if the node is null, return 0
-      if(root == nullptr){
-          return 0;
-      }
-    
-      // Recursively get the sum of the left and right subtrees
-      int leftSum = getsumtree(root->left);
-      int rightSum = getsumtree(root->right);
-      
-      // Store the current node's value
-      int oldValue = root->data;
-      
-      // Update the current node's value to the sum of its left and right subtrees
-      root->data = leftSum + rightSum;
-      
-      // Return the sum of the subtree rooted at the current node, which is the original value plus the sum of the left and right subtrees
-      return oldValue + root->data;
-  }
-  
-  // Convert a given tree to a tree where every node contains the sum of values of
-  // nodes in left and right subtrees in the original tree
-  void toSumTree(Node *node)
-  {
-      getsumtree(node);
-  }
+    int getSumTree(Node* &root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        int leftSum = getSumTree(root->left);
+        int rightSum = getSumTree(root->right);
+        int oldValue = root->data;
+        root->data = leftSum + rightSum;
+        return oldValue + root->data;
+    }
+    void toSumTree(Node *node) {
+        getSumTree(node);
+    }
 };
-// LCR 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 
-class Solution {
+// Lowest Common Ancestor Solution
+class LCA_Solution {
 public:
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    };
+
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root==NULL){
+        if (root == NULL) {
             return NULL;
         }
-        if(root->val==p->val){
+        if (root->val == p->val) {
             return p;
         }
-        if(root->val==q->val){
+        if (root->val == q->val) {
             return q;
         }
-        TreeNode* leftkaans=lowestCommonAncestor(root->left,p,q);
-        TreeNode* rightkaans=lowestCommonAncestor(root->right,p,q);
-        if(leftkaans==NULL&&rightkaans==NULL){
+        TreeNode* leftAnswer = lowestCommonAncestor(root->left, p, q);
+        TreeNode* rightAnswer = lowestCommonAncestor(root->right, p, q);
+        if (leftAnswer == NULL && rightAnswer == NULL) {
             return NULL;
-        }
-        else if(leftkaans==NULL&&rightkaans!=NULL){
-           return rightkaans;
-        }
-        else if(leftkaans!=NULL&&rightkaans==NULL){
-           return leftkaans;
-        }
-        else{
+        } else if (leftAnswer == NULL) {
+            return rightAnswer;
+        } else if (rightAnswer == NULL) {
+            return leftAnswer;
+        } else {
             return root;
         }
     }
 };
-class Solution {
+
+// Path Sum Solution
+class PathSumSolution {
 public:
-  void solve(TreeNode* root, int targetSum,int Currsum, vector<int>temp, vector<vector<int> >&ans){
-    if(root==NULL){
-        return ;
-    }
-    if(root->left==NULL&&root->right==NULL){
-        Currsum+=root->val;
-        temp.push_back(root->val);
-        if(Currsum==targetSum){
-            ans.push_back(temp);
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    };
+
+    void solve(TreeNode* root, int targetSum, int currSum, vector<int> temp, vector<vector<int>>& ans) {
+        if (root == NULL) {
+            return;
         }
-        return ;
-    }
-     Currsum+=root->val;
-
+        if (root->left == NULL && root->right == NULL) {
+            currSum += root->val;
+            temp.push_back(root->val);
+            if (currSum == targetSum) {
+                ans.push_back(temp);
+            }
+            return;
+        }
+        currSum += root->val;
         temp.push_back(root->val);
-        solve(root->left,targetSum,Currsum,temp,ans);
-        solve(root->right,targetSum,Currsum,temp,ans);
+        solve(root->left, targetSum, currSum, temp, ans);
+        solve(root->right, targetSum, currSum, temp, ans);
+    }
 
-  }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int> >ans;
-        int sum=0;
-        vector<int>temp;
-        solve(root,targetSum,sum,temp,ans);
+        vector<vector<int>> ans;
+        int sum = 0;
+        vector<int> temp;
+        solve(root, targetSum, sum, temp, ans);
         return ans;
     }
 };
-int main ()
-{
 
- return 0;
+int main() {
+    // You can create test cases here to test different solutions
+    return 0;
 }
