@@ -106,6 +106,29 @@ void postordertraversal(Node *root)
     }
   }
 
+//   class Solution {
+// public:
+//     TreeNode* searchBST(TreeNode* root, int target) {
+//         TreeNode*temp=root;
+//         while(temp!=NULL){
+//             if(target==temp->val){
+//                 return temp;
+//             }
+//             else if(target<temp->val){
+                
+//                     temp=temp->left;
+                
+//             }
+//             else if(target>temp->val){
+                  
+//                     temp=temp->right;
+                
+//             }
+//         }
+//         return NULL;
+//     }
+// };
+
 bool FindTargetInBst(Node *root,int target){
     if(root==NULL){
         // aakiri tak pahuch gaye he 
