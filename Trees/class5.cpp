@@ -207,6 +207,91 @@ void PrintBoundary(Node *root)
     PrintLeafBoundary(root);
     PrintRightBoundary(root->right);
 }
+
+
+
+// Left View Of the tree My logic
+void LeftViewOftree(Node*root,vector<int>&ans){
+     unordered_map<int,int>level;
+     queue<pair<Node*,int>>q;
+     q.push(make_pair(root,0));
+    //  q.push(make_pair(NULL,-1));
+     while(!q.empty()){
+         pair<Node*,int>temp=q.front();
+         q.pop();
+         Node*topnode=temp.first;
+         int hd=temp.second;
+        //  if(topnode==NULL){
+        //      if(!q.empty()){
+        //          q.push(make_pair(nullptr,-1));
+        //      }
+        //  }
+         
+             if(hd!=-1 && level.find(hd)==level.end()){
+                 level[hd]=topnode->data;
+                 ans.push_back(topnode->data);
+             }
+             
+             if(topnode->left){
+                 q.push(make_pair(topnode->left,hd+1));
+             }
+             if(topnode->right){
+                 q.push(make_pair(topnode->right,hd+1));
+             }
+         
+     }
+     
+       
+     
+}
+//Function to return a list containing elements of left view of the binary tree.
+vector<int> leftView(Node *root)
+{vector<int>ans;
+ LeftViewOftree(root,ans);
+ return ans;
+   // Your code here
+}
+
+
+// similarly for right view we first process the right view
+class Solution{
+    public:
+void RightViewOfTree(TreeNode* root, vector<int>& ans) {
+    if (!root) return;
+
+    unordered_map<int, int> level;  // Map to track levels
+    queue<pair<TreeNode*, int>> q;      // Queue for level-order traversal
+    q.push(make_pair(root, 0));     // Push the root TreeNode with level 0
+
+    while (!q.empty()) {
+        pair<TreeNode*, int> temp = q.front();
+        q.pop();
+
+        TreeNode* topnode = temp.first;
+        int hd = temp.second;
+
+        // If this is the first node at the current level, add it to the result
+        if (hd != -1 && level.find(hd) == level.end()) {
+            level[hd] = topnode->val;
+            ans.push_back(topnode->val);
+        }
+
+        // Push the right child first to ensure we process the rightmost node first
+        if (topnode->right) {
+            q.push(make_pair(topnode->right, hd + 1));
+        }
+        // Then push the left child
+        if (topnode->left) {
+            q.push(make_pair(topnode->left, hd + 1));
+        }
+    }
+}
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int>ans;
+          RightViewOfTree(root,ans);
+         return ans;
+    }
+};
 int main()
 {
     Node *root = Buildtree();
