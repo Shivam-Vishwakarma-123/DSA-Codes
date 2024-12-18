@@ -3,35 +3,27 @@
 using namespace std;
 
 int main() {
-  vector<int> arr{10,1,7,6,14,9};
+  vector<int> arr{10,9,8,5,6,1};
   int n = arr.size();
 
   //insertion sort
-  for(int round = 1; round < n; round++) {
-      //Step A - fetch
-      int val = arr[round];
-      //StepB: Compare
-      int j=round-1;
-      for(int j=round-1; j>=0; j--) {
-          if(arr[j] > val) {
-              // Step C: shift
-              arr[j+1] = arr[j];
-          }
-          else {
-              //rukna hai
-              break;
-          }
-
-      }
+for(int round=1;round<arr.size();round++){
+    int value=arr[round];
+    int j=round-1;
+    while(arr[j]>value){
+        arr[j+1]=arr[j];
+        j--;
+    }
+    arr[j+1]=value;
+}
       //stepD: Copy
-      arr[j+1] = val;
+    
+  for(auto i:arr){
+      cout<<i<<" ";
   }
-
   //printinhg
-  for(int i=0; i<n; i++) {
-      cout << arr[i] << " ";
-  }
-  cout << endl;
+ 
+
 
 
 

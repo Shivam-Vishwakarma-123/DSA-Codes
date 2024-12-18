@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .body1{
+            background-color: blue;
+        }
+        .body2{
+            background-color: black;
+        }
+        .body3{
+            background-color: red;
+        }
+    </style>
+</head>
+<body id="Body">
+    <button  onclick="Blue()">
+        Blue
+    </button>
+    <button onclick="Black()">Black</button>
+    <button onclick="Red()">Red</button>
+</body>
+
+<script>
+    function Blue(){
+      document.getElementById('Body').classList.add('body1');
+      document.getElementById('Body').classList.remove('body2');
+      document.getElementById('Body').classList.remove('body3');
+    }
+    function Black(){
+      document.getElementById('Body').classList.toggle('body2');
+    }
+    function Red(){
+      document.getElementById('Body').classList.toggle('body3');
+    }
+</script>
+</html>
